@@ -39,6 +39,7 @@ const Paragraph = styled.p`
   margin-bottom: -20px;
 `;
 const Login = (props) => {
+  console.log(props);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showState, setShowState] = useState(true);

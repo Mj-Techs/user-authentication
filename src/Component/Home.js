@@ -27,11 +27,14 @@ const Paragraph = styled.p`
   margin-top: -20px;
 `;
 const Home = (props) => {
-  const { TokenUpdate } = props;
+  const { LoginStatus } = props;
   useEffect(() => {
-    const data = localStorage.getItem("token");
-    TokenUpdate(data);
-  }, [TokenUpdate]);
+    if (localStorage.getItem("token")) {
+      LoginStatus(true);
+    } else {
+      LoginStatus(false);
+    }
+  }, [LoginStatus]);
   return (
     <Div>
       {props.location.state && <Paragraph>{props.location.state}</Paragraph>}

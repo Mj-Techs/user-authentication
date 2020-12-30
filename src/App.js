@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import Home from "./Component/Home";
 import Register from "./Auth/Register";
 import Login from "./Auth/Login";
 import Header from "./Component/Header";
-import UserHeader from "./Component/UserHeader";
+import PrivateRoute from "./PrivateRoute";
 import Account from "./Auth/Account";
 const Wrapper = styled.div`
   display: flex;
@@ -17,29 +17,38 @@ const NavHeader = styled.h1`
 `;
 
 const App = () => {
-  const [token, setToken] = useState("");
-  const TokenUpdate = (data) => {
-    setToken(data);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const LoginStatus = (data) => {
+    setIsLoggedIn(data);
   };
-  // console.log(token);
+
   return (
     <div>
       <Wrapper>
         <NavHeader>User Auth</NavHeader>
-        {token === null ? <Header /> : <UserHeader />}
+        <Route
+          render={(props) => <Header isLoggedIn={isLoggedIn} {...props} />}
+        />
       </Wrapper>
-      <Route
-        exact
-        path="/"
-        render={(props) => <Home {...props} TokenUpdate={TokenUpdate} />}
-      />
-      <Route
-        exact
-        path="/Register"
-        render={(props) => <Register {...props} />}
-      />
-      <Route exact path="/Login" render={(props) => <Login {...props} />} />
-      <Route exact path="/Account" render={(props) => <Account {...props} />} />
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={(props) => <Home {...props} LoginStatus={LoginStatus} />}
+        />
+        <Route
+          exact
+          path="/Register"
+          render={(props) => <Register {...props} />}
+        />
+        <Route exact path="/Login" render={(props) => <Login {...props} />} />
+        <PrivateRoute
+          exact
+          path="/Account"
+          render={(props) => <Account isLoggedIn={isLoggedIn} {...props} />}
+        />
+        <Route path="*" component={() => "404 NOT FOUND"} />
+      </Switch>
     </div>
   );
 };
