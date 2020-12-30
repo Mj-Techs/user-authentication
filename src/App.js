@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import styled from "styled-components";
 import Home from "./Component/Home";
@@ -6,6 +6,7 @@ import Register from "./Auth/Register";
 import Login from "./Auth/Login";
 import Header from "./Component/Header";
 import UserHeader from "./Component/UserHeader";
+import Account from "./Auth/Account";
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
@@ -38,6 +39,7 @@ const App = () => {
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/Login" render={(props) => <Login {...props} />} />
+      <Route exact path="/Account" render={(props) => <Account {...props} />} />
     </div>
   );
 };
