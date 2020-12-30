@@ -17,18 +17,21 @@ const NavHeader = styled.h1`
 
 const App = () => {
   const [token, setToken] = useState("");
-  console.log(token);
-  useEffect(() => {
-    const data = localStorage.getItem(token);
+  const TokenUpdate = (data) => {
     setToken(data);
-  }, [token]);
+  };
+  // console.log(token);
   return (
     <div>
       <Wrapper>
         <NavHeader>User Auth</NavHeader>
         {token === null ? <Header /> : <UserHeader />}
       </Wrapper>
-      <Route exact path="/" render={(props) => <Home {...props} />} />
+      <Route
+        exact
+        path="/"
+        render={(props) => <Home {...props} TokenUpdate={TokenUpdate} />}
+      />
       <Route
         exact
         path="/Register"

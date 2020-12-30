@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import image from "./auth.jpeg";
 
 const Image = styled.img`
   height: 500px;
   width: 1000px;
+  margin-top: -10px;
 `;
 const Div = styled.div`
   text-align: center;
@@ -23,8 +24,14 @@ const SecondPara = styled.p`
 const Paragraph = styled.p`
   font-size: 1.2rem;
   color: green;
+  margin-top: -20px;
 `;
 const Home = (props) => {
+  const { TokenUpdate } = props;
+  useEffect(() => {
+    const data = localStorage.getItem("token");
+    TokenUpdate(data);
+  }, [TokenUpdate]);
   return (
     <Div>
       {props.location.state && <Paragraph>{props.location.state}</Paragraph>}
