@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { Route } from "react-router-dom";
+import styled from "styled-components";
+import Home from "./Component/Home";
+import Register from "./Auth/Register";
+import Login from "./Auth/Login";
+import Header from "./Component/Header";
+import UserHeader from "./Component/UserHeader";
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+const NavHeader = styled.h1`
+  margin-top: 15px;
+  font-size: 2.9rem;
+`;
 
-function App() {
+const App = () => {
+  const [token, setToken] = useState("");
+  console.log(token);
+  useEffect(() => {
+    const data = localStorage.getItem(token);
+    setToken(data);
+  }, [token]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Wrapper>
+        <NavHeader>User Auth</NavHeader>
+        {token === null ? <Header /> : <UserHeader />}
+      </Wrapper>
+      <Route exact path="/" render={(props) => <Home {...props} />} />
+      <Route
+        exact
+        path="/Register"
+        render={(props) => <Register {...props} />}
+      />
+      <Route exact path="/Login" render={(props) => <Login {...props} />} />
     </div>
   );
-}
-
+};
 export default App;
