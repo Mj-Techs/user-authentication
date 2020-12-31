@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 const Account = (props) => {
-  console.log(props);
   const [userDetail, setUserDetail] = useState({});
 
   const InfoWrapper = styled.div`

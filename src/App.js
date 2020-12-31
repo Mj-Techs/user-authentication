@@ -22,7 +22,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("token") || false
   );
-  console.log(isLoggedIn);
+
   const LoginStatus = (data) => {
     setIsLoggedIn(data);
   };
