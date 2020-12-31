@@ -1,7 +1,6 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 
 const LinkWrapper = styled.div`
   display: flex;
@@ -20,38 +19,18 @@ const Div = styled.div`
 `;
 const Header = (props) => {
   const { isLoggedIn } = props;
-  const history = useHistory();
-  const handleLogout = () => {
-    const token = localStorage.getItem("token");
-    axios
-      .delete("http://dct-user-auth.herokuapp.com/users/logout", {
-        headers: { "x-auth": token },
-      })
-      .then((response) => {
-        const data = response.data;
-        console.log(data);
-        if (data.notice) {
-          localStorage.removeItem("token");
-          history.push("/");
-        }
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-  };
+
   return (
     <LinkWrapper>
       <NavLink to="/">Home</NavLink>
       {isLoggedIn ? (
         <Div>
-          <NavLink to="/Account">Account</NavLink>
-          <NavLink to="/Logout" onClick={handleLogout}>
-            Logout
-          </NavLink>
+          <NavLink to="/account">Account</NavLink>
+          <NavLink to="/logout">Logout</NavLink>
         </Div>
       ) : (
         <Div>
-          <NavLink to="/Register">Register</NavLink>
+          <NavLink to="/register">Register</NavLink>
           <NavLink to="/login">Login</NavLink>
         </Div>
       )}

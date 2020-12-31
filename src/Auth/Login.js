@@ -39,7 +39,7 @@ const Paragraph = styled.p`
   margin-bottom: -20px;
 `;
 const Login = (props) => {
-  console.log(props);
+  // console.log(props);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showState, setShowState] = useState(true);
@@ -75,8 +75,10 @@ const Login = (props) => {
         })
         .then((response) => {
           const result = response.data;
-          // console.log(result);
+
           if (result.token) {
+            setEmail("");
+            setPassword("");
             localStorage.setItem("token", result.token);
             props.history.push("/", "successfully logged in");
           }

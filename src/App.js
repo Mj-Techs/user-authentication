@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import Home from "./Component/Home";
 import Register from "./Auth/Register";
@@ -7,6 +7,8 @@ import Login from "./Auth/Login";
 import Header from "./Component/Header";
 import PrivateRoute from "./PrivateRoute";
 import Account from "./Auth/Account";
+import Logout from "./Auth/Logout";
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
@@ -17,7 +19,10 @@ const NavHeader = styled.h1`
 `;
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("token") || false
+  );
+  console.log(isLoggedIn);
   const LoginStatus = (data) => {
     setIsLoggedIn(data);
   };
@@ -30,6 +35,7 @@ const App = () => {
           render={(props) => <Header isLoggedIn={isLoggedIn} {...props} />}
         />
       </Wrapper>
+
       <Switch>
         <Route
           exact
@@ -38,16 +44,58 @@ const App = () => {
         />
         <Route
           exact
-          path="/Register"
-          render={(props) => <Register {...props} />}
+          path="/register"
+          render={() =>
+            isLoggedIn ? (
+              <Redirect
+                to={{
+                  pathname: "/",
+                  state: "true",
+                }}
+              />
+            ) : (
+              <Register />
+            )
+          }
         />
-        <Route exact path="/Login" render={(props) => <Login {...props} />} />
+        <Route
+          exact
+          path="/login"
+          render={(props) =>
+            isLoggedIn ? (
+              <Redirect
+                to={{
+                  pathname: "/",
+                  state: "true",
+                }}
+              />
+            ) : (
+              <Login {...props} />
+            )
+          }
+        />
         <PrivateRoute
           exact
-          path="/Account"
-          render={(props) => <Account isLoggedIn={isLoggedIn} {...props} />}
+          path="/account"
+          component={Account}
+          isLoggedIn={isLoggedIn}
         />
-        <Route path="*" component={() => "404 NOT FOUND"} />
+        <Route
+          exact
+          path="/logout"
+          render={() =>
+            isLoggedIn ? (
+              <Logout />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: "/login",
+                  state: "You need to login first,before accessing this route",
+                }}
+              />
+            )
+          }
+        />
       </Switch>
     </div>
   );

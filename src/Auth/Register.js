@@ -82,6 +82,9 @@ const Register = (props) => {
         .then((response) => {
           const result = response.data;
           if (result) {
+            setUsername("");
+            setEmail("");
+            setPassword("");
             swal("Good job!", "Successfully Registered", "success", {
               buttons: false,
               timer: 2950,

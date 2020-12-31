@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 const Account = (props) => {
+  console.log(props);
   const [userDetail, setUserDetail] = useState({});
 
   const InfoWrapper = styled.div`
@@ -16,10 +17,12 @@ const Account = (props) => {
     margin-top: 30px;
     padding-left: 90px;
   `;
-  const EmailHeader = styled(InfoHeader)`
+  const EmailHeader = styled.h2`
+    margin-top: 30px;
     padding-left: 150px;
   `;
-  const DateHeader = styled(InfoHeader)`
+  const DateHeader = styled.h2`
+    margin-top: 30px;
     padding-left: 100px;
   `;
   useEffect(() => {

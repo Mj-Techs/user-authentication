@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import image from "./auth.jpeg";
-
+import swal from "sweetalert";
 const Image = styled.img`
   height: 500px;
   width: 1000px;
@@ -29,6 +29,9 @@ const Paragraph = styled.p`
 const Home = (props) => {
   const { LoginStatus } = props;
   useEffect(() => {
+    if (props.location.state === "true") {
+      swal("sorry!", "You have to logout first", "error");
+    }
     if (localStorage.getItem("token")) {
       LoginStatus(true);
     } else {
@@ -37,7 +40,9 @@ const Home = (props) => {
   }, [LoginStatus]);
   return (
     <Div>
-      {props.location.state && <Paragraph>{props.location.state}</Paragraph>}
+      {props.location.state !== "true" && (
+        <Paragraph>{props.location.state}</Paragraph>
+      )}
       <Image src={image} alt="authentication image" />
       <TextDiv>
         <FirstPara>
