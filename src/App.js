@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Home from "./Component/Home";
 import Register from "./Auth/Register";
 import Login from "./Auth/Login";
-import Header from "./Component/Header";
+import Navbar from "./Component/Navbar";
 import PrivateRoute from "./PrivateRoute";
 import Account from "./Auth/Account";
 import Logout from "./Auth/Logout";
@@ -32,7 +32,7 @@ const App = () => {
       <Wrapper>
         <NavHeader>User Auth</NavHeader>
         <Route
-          render={(props) => <Header isLoggedIn={isLoggedIn} {...props} />}
+          render={(props) => <Navbar isLoggedIn={isLoggedIn} {...props} />}
         />
       </Wrapper>
 

@@ -17,7 +17,7 @@ const NavLink = styled(Link)`
 const Div = styled.div`
   margin-top: 20px;
 `;
-const Header = (props) => {
+const Navbar = (props) => {
   const { isLoggedIn } = props;
 
   return (
@@ -37,4 +37,4 @@ const Header = (props) => {
     </LinkWrapper>
   );
 };
-export default Header;
+export default Navbar;
