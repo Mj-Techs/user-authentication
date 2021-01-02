@@ -5,7 +5,7 @@ import swal from "sweetalert";
 const Image = styled.img`
   height: 500px;
   width: 1000px;
-  margin-top: -10px;
+  margin-top: 0px;
 `;
 const Div = styled.div`
   text-align: center;
@@ -24,7 +24,7 @@ const SecondPara = styled.p`
 const Paragraph = styled.p`
   font-size: 1.2rem;
   color: green;
-  margin-top: -20px;
+  margin-top: 5px;
 `;
 const Home = (props) => {
   const { LoginStatus } = props;

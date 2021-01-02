@@ -10,10 +10,13 @@ import Account from "./Auth/Account";
 import Logout from "./Auth/Logout";
 
 const Wrapper = styled.div`
+  width: 100%;
+  background: #33b6ff;
   display: flex;
   justify-content: space-around;
 `;
 const NavHeader = styled.h1`
+  font-family: sans-serif;
   margin-top: 15px;
   font-size: 2.9rem;
 `;

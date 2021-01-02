@@ -4,34 +4,54 @@ import validator from "validator";
 import axios from "axios";
 import swal from "sweetalert";
 const Div = styled.div`
+  margin-left: 35%;
+  margin-top: 50px;
+  padding-left: 10px;
+  width: 350px;
+  height: 400px;
+  background: #33b6ff;
   text-align: center;
+  border: 15px solid #33b6ff;
+  border-radius: 20px;
+  font-family: sans-serif;
 `;
 const Header = styled.h1`
   font-size: 2.5rem;
+  margin-top: 10px;
+`;
+const Section = styled.div`
+  width: 300px;
+  height: 45px;
+  margin-left: 19px;
+  margin-top: 10px;
 `;
 const Input = styled.input`
   width: 300px;
-  height: 25px;
-  margin: 7px;
-  border: 2px solid black;
+  height: 35px;
+  margin-top: 7px;
+  border: 2px solid #33b6ff;
+  border-radius: 15px;
   font-weight: bold;
+  font-size: 1.2rem;
+  color: black;
 `;
 const Button = styled.button`
   font-size: 1.3em;
   margin: 1em;
-  padding: 0.25em 1.3em;
-  border: 1px solid black;
-  border-radius: 3px;
+  padding: 0.28em 1.3em;
+  border: 1px solid #33b6ff;
+  border-radius: 13px;
   font-weight: bold;
   &:hover {
     color: white;
-    background: green;
+    background: ${(props) => (props.primary ? "red" : "green")};
   }
 `;
 const Span = styled.span`
   display: grid;
   font-size: 1.1rem;
-  color: red;
+  color: #fa0000;
+  margin-top: 4px;
 `;
 const Register = (props) => {
   const [username, setUsername] = useState("");
@@ -47,6 +67,11 @@ const Register = (props) => {
   };
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+  const handleCancelButton = () => {
+    setUsername("");
+    setEmail("");
+    setPassword("");
   };
   const runValidation = () => {
     //username validation
@@ -108,33 +133,41 @@ const Register = (props) => {
     <Div>
       <Header>Register With Us</Header>
       <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="Enter username"
-          value={username}
-          onChange={handleNameChange}
-        />
-        {formError.username && <Span>{formError.username}</Span>}
+        <Section>
+          <Input
+            type="text"
+            placeholder="Enter username"
+            value={username}
+            onChange={handleNameChange}
+          />
+          {formError.username && <Span>{formError.username}</Span>}
+        </Section>
         <br />
-        <Input
-          type="text"
-          placeholder="Enter email"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        {formError.email && <Span>{formError.email}</Span>}
+        <Section>
+          <Input
+            type="text"
+            placeholder="Enter email"
+            value={email}
+            onChange={handleEmailChange}
+          />
+          {formError.email && <Span>{formError.email}</Span>}
+        </Section>
         <br />
-        <Input
-          type="password"
-          placeholder="Enter password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        {formError.password && <Span>{formError.password}</Span>}
+        <Section>
+          <Input
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          {formError.password && <Span>{formError.password}</Span>}
+        </Section>
         <br />
 
         <Button type="submit">Register</Button>
-        <Button>Cancel</Button>
+        <Button primary type="button" onClick={handleCancelButton}>
+          Cancel
+        </Button>
       </form>
     </Div>
   );

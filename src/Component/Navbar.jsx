@@ -10,9 +10,12 @@ const LinkWrapper = styled.div`
 `;
 const NavLink = styled(Link)`
   padding: 20px;
-  font-size: 1.5rem;
-  color: blue;
+  font-size: 1.8rem;
+  color: rgb(0, 0, 255);
   text-decoration: none;
+  font-family: sans-serif;
+  color: #03070b;
+  font-weight: bold;
 `;
 const Div = styled.div`
   margin-top: 20px;

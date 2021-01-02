@@ -5,16 +5,24 @@ const Account = (props) => {
   const [userDetail, setUserDetail] = useState({});
 
   const InfoWrapper = styled.div`
-    margin: 40px;
-    padding-left: 20%;
+    width: 500px;
+    margin-left: 23%;
+    margin-top: 50px;
+    padding-left: 10%;
+    border: 15px solid #33b6ff;
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
+    background-color: #33b6ff;
+    font-family: sans-serif;
   `;
   const InternalWrapper = styled.div`
     display: flex;
-    margin-top: -30px;
+    margin-top: -50px;
+    padding-top: 30px;
   `;
   const InfoHeader = styled.h2`
     margin-top: 30px;
-    padding-left: 90px;
+    padding-left: 80px;
   `;
   const EmailHeader = styled.h2`
     margin-top: 30px;
@@ -22,7 +30,7 @@ const Account = (props) => {
   `;
   const DateHeader = styled.h2`
     margin-top: 30px;
-    padding-left: 100px;
+    padding-left: 95px;
   `;
   useEffect(() => {
     axios
