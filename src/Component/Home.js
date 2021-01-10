@@ -27,17 +27,11 @@ const Paragraph = styled.p`
   margin-top: 5px;
 `;
 const Home = (props) => {
-  const { LoginStatus } = props;
   useEffect(() => {
     if (props.location.state === "true") {
       swal("sorry!", "You have to logout first", "error");
     }
-    if (localStorage.getItem("token")) {
-      LoginStatus(true);
-    } else {
-      LoginStatus(false);
-    }
-  }, [LoginStatus]);
+  }, []);
   return (
     <Div>
       {props.location.state !== "true" && (

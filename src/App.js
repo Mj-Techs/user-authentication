@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import Home from "./Component/Home";
@@ -22,13 +22,16 @@ const NavHeader = styled.h1`
 `;
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("token") || false
-  );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const LoginStatus = (data) => {
-    setIsLoggedIn(data);
+  const LoginStatus = () => {
+    setIsLoggedIn(!isLoggedIn);
   };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      LoginStatus();
+    }
+  }, []);
 
   return (
     <div>
@@ -40,11 +43,7 @@ const App = () => {
       </Wrapper>
 
       <Switch>
-        <Route
-          exact
-          path="/"
-          render={(props) => <Home {...props} LoginStatus={LoginStatus} />}
-        />
+        <Route exact path="/" render={(props) => <Home {...props} />} />
         <Route
           exact
           path="/register"
@@ -73,7 +72,7 @@ const App = () => {
                 }}
               />
             ) : (
-              <Login {...props} />
+              <Login {...props} LoginStatus={LoginStatus} />
             )
           }
         />
@@ -88,7 +87,7 @@ const App = () => {
           path="/logout"
           render={() =>
             isLoggedIn ? (
-              <Logout />
+              <Logout LoginStatus={LoginStatus} />
             ) : (
               <Redirect
                 to={{

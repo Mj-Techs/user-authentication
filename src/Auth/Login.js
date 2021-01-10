@@ -58,7 +58,7 @@ const Paragraph = styled.p`
   margin-bottom: -20px;
 `;
 const Login = (props) => {
-  // console.log(props);
+  const { LoginStatus } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showState, setShowState] = useState(true);
@@ -105,8 +105,8 @@ const Login = (props) => {
             setPassword("");
             localStorage.setItem("token", result.token);
             props.history.push("/", "successfully logged in");
-          }
-          if (result.errors) {
+            LoginStatus();
+          } else if (result.errors) {
             setLoginError({ serverResponse: result.errors });
           }
         })

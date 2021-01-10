@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
-const Logout = () => {
+const Logout = (props) => {
   const history = useHistory();
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -14,8 +14,9 @@ const Logout = () => {
         const data = response.data;
         localStorage.removeItem("token");
         if (data.notice) {
-          swal("Hey!", "You have successfully logged out", "success");
+          props.LoginStatus();
           history.push("/");
+          swal("Hey!", "You have successfully logged out", "success");
         }
       })
       .catch((err) => {
