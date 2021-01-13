@@ -29,6 +29,7 @@ const Navbar = (props) => {
       {isLoggedIn ? (
         <Div>
           <NavLink to="/account">Account</NavLink>
+          <NavLink to="/mynotes">MyNotes</NavLink>
           <NavLink to="/logout">Logout</NavLink>
         </Div>
       ) : (

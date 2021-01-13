@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
+import Modal from "react-modal";
 import Home from "./Component/Home";
 import Register from "./Auth/Register";
 import Login from "./Auth/Login";
 import Navbar from "./Component/Navbar";
-import PrivateRoute from "./PrivateRoute";
 import Account from "./Auth/Account";
 import Logout from "./Auth/Logout";
+import MyNotes from "./UserNotes/MyNotes";
+Modal.setAppElement("#root");
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 10%;
   background: #33b6ff;
   display: flex;
   justify-content: space-around;
@@ -22,16 +25,13 @@ const NavHeader = styled.h1`
 `;
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("token") || false
+  );
 
   const LoginStatus = () => {
     setIsLoggedIn(!isLoggedIn);
   };
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      LoginStatus();
-    }
-  }, []);
 
   return (
     <div>
@@ -76,11 +76,37 @@ const App = () => {
             )
           }
         />
-        <PrivateRoute
+        <Route
           exact
           path="/account"
-          component={Account}
-          isLoggedIn={isLoggedIn}
+          render={() =>
+            isLoggedIn ? (
+              <Account />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: "/login",
+                  state: "You need to login first,before accessing this route",
+                }}
+              />
+            )
+          }
+        />
+        <Route
+          exact
+          path="/mynotes"
+          render={() =>
+            isLoggedIn ? (
+              <MyNotes />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: "/login",
+                  state: "You need to login first,before accessing this route",
+                }}
+              />
+            )
+          }
         />
         <Route
           exact
