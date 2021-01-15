@@ -4,7 +4,6 @@ import swal from "sweetalert";
 import Notelist from "./Notelist";
 import NoteForm from "./NoteForm";
 import axios from "axios";
-import _ from "lodash";
 const Container = styled.div`
   width: 100%;
   display: grid;

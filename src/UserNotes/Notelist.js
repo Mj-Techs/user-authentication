@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import CompleteNote from "./CompleteNote";
-import EditNote from "./EditNote";
 const Wrapper = styled.div`
   display: flex;
 `;
@@ -30,26 +29,16 @@ const Button = styled.button`
   }
 `;
 const Notelist = (props) => {
-  const { title, _id, pageLoader, body } = props;
+  const { title, _id, pageLoader } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isNoteFormOpen, setIsNoteFormOpen] = useState(false);
-  const [callEdit, setCallEdit] = useState(false);
-  const [EditKey, setEditKey] = useState(false);
+
   const ToggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
   const handleTitleClick = () => {
     setIsModalOpen(true);
   };
-  const handleNoteForm = () => {
-    setIsNoteFormOpen(!isNoteFormOpen);
-  };
-  const handleEdit = () => {
-    console.log(EditKey);
-    setEditKey(true);
-    setIsNoteFormOpen(true);
-    setCallEdit(!callEdit);
-  };
+
   const handleDelete = () => {
     const confirmRemove = window.confirm("Are You Sure?");
     if (confirmRemove) {
@@ -70,22 +59,12 @@ const Notelist = (props) => {
     <Wrapper>
       <Title onClick={handleTitleClick}>{title}</Title>
       <Button onClick={handleDelete}>delete</Button>
-      <Button onClick={handleEdit}>edit</Button>
+
       {_id && (
         <CompleteNote
           id={_id}
           isModalOpen={isModalOpen}
           ToggleModal={ToggleModal}
-        />
-      )}
-      {callEdit && (
-        <EditNote
-          id={_id}
-          title={title}
-          body={body}
-          isNoteFormOpen={isNoteFormOpen}
-          handleNoteForm={handleNoteForm}
-          Editkey={EditKey}
         />
       )}
     </Wrapper>

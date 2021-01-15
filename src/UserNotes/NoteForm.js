@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import validator from "validator";
 import axios from "axios";
@@ -79,17 +79,14 @@ const Span = styled.span`
   color: #fa0000;
 `;
 const NoteForm = (props) => {
-  const { isNoteFormOpen, handleNoteForm, id, title, body, editKey } = props;
-  console.log(editKey);
+  const { isNoteFormOpen, handleNoteForm } = props;
   const [formData, setFormData] = useState({
-    title: title ? title : "",
-    body: body ? body : "",
+    title: "",
+    body: "",
   });
   const [noteError, setNoteError] = useState({});
   const errors = {};
-  // useEffect(() => {
 
-  // }, [id]);
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -106,32 +103,18 @@ const NoteForm = (props) => {
 
     if (Object.keys(errors).length === 0) {
       setNoteError({});
-      if (!editKey) {
-        axios
-          .post("http://dct-user-auth.herokuapp.com/api/notes", formData, {
-            headers: { "x-auth": localStorage.getItem("token") },
-          })
-          .then((response) => {
-            // const result = response.data;
-            setFormData({ title: "", body: "" });
-          })
-          .catch((err) => {
-            alert(err.message);
-          });
-      } else {
-        axios
-          .put(`http://dct-user-auth.herokuapp.com/api/notes/${id}`, formData, {
-            headers: { "x-auth": localStorage.getItem("token") },
-          })
-          .then((response) => {
-            const result = response.data;
-            console.log("put", result);
-            setFormData({ title: "", body: "" });
-          })
-          .catch((err) => {
-            alert(err.message);
-          });
-      }
+
+      axios
+        .post("http://dct-user-auth.herokuapp.com/api/notes", formData, {
+          headers: { "x-auth": localStorage.getItem("token") },
+        })
+        .then((response) => {
+          // const result = response.data;
+          setFormData({ title: "", body: "" });
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
     } else {
       setNoteError(errors);
     }
